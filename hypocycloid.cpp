@@ -5,7 +5,6 @@
 //  Created by Данил Морозов on 19/09/2020.
 //  Copyright © 2020 Данил Морозов. All rights reserved.
 //
-//#pragma once
 #include "hypocycloid.h"
 #include <cmath>
 

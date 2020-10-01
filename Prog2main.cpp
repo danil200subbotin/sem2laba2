@@ -7,7 +7,6 @@
 //
 
 //пилим гипоциклоиду
-
 #include "hypocycloid.h"
 #include <iostream>
 #include <cmath>

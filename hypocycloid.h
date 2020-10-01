@@ -13,7 +13,7 @@
 //
 //#endif /* cikloida_h */
 
-//#pragma once
+#pragma once
 #include <iostream>
 #include <cmath>
 //#include <gtest/gtest.h>
