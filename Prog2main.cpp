@@ -22,7 +22,8 @@ const char *messages[] = {"0 - finish programm", "1 - установить зн�
 const int Cmassages = sizeof(messages)/sizeof(messages[0]);
 
 int main() {
-    std::cout << "Добро пожаловать на лабу номер 2" << std::endl << "cos90 = " << cos(1.57) << std::endl;
+    std::cout << "Добро пожаловать на лабу номер 2" << std::endl;
+    //<< "cos90 = " << cos(1.57) << std::endl;
     int i = 1, a = 0;
     program2::Hypocycloid hypocycloid;
     while(i)
@@ -33,9 +34,9 @@ int main() {
         double first = 0.0, second = 0.0;
         int j = 1;
         while (j) {
-            for (int i = 0; i < Cmassages; ++i)
+            for (int index = 0; index < Cmassages; ++index)
             {
-                std::cout << messages[i] << std::endl;
+                std::cout << messages[index] << std::endl;
             }
 
             std::cout << "-----<<";

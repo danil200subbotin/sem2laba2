@@ -39,7 +39,8 @@ namespace program2 {
 
         //набор конструкторов
         Hypocycloid(double x0 = 0, double y0 = 0, double big_radious = 4, double little_radious = 1, double real_radius = -1);
-        Hypocycloid(const Point &p0, double big_radius = 4, double little_radius = 1, double real_radius = -1);
+
+        [[maybe_unused]] Hypocycloid(const Point &p0, double big_radius = 4, double little_radius = 1, double real_radius = -1);
         //   ~Hypocycloid(); // деструктор
 
         double get_little_radius() const { return little_radius; };       //get'теры

@@ -30,7 +30,7 @@ program2::Hypocycloid::Hypocycloid(double x0, double y0, double big_radius, doub
 }
 
 
-program2::Hypocycloid::Hypocycloid(const Point &p0, double big_radius, double little_radius, double real_radius) : point(p0)
+[[maybe_unused]] program2::Hypocycloid::Hypocycloid(const Point &p0, double big_radius, double little_radius, double real_radius) : point(p0)
 {
  //       std::cout << Hypocycloid::real_radius << std::endl;
     if ((big_radius < 0) || (little_radius < 0) || (little_radius >= big_radius))
@@ -91,9 +91,6 @@ program2::Hypocycloid& program2::Hypocycloid::set_real_radius(double real_radius
 program2::Point program2::Hypocycloid::return_coordinates_by_angle(double angle)
 {
     Point point_returner;
-    double helper;
-    //helper = angle / 360;
-    //angle = angle - ((int)helper * 360) ;
     angle = angle / 180 * PI;
   //  std::cout  << "angle = " << angle << std::endl;
     point_returner.x = (big_radius - little_radius) * cos(angle) + (real_radius * cos((big_radius - little_radius) * angle / little_radius));
@@ -103,20 +100,17 @@ program2::Point program2::Hypocycloid::return_coordinates_by_angle(double angle)
 
 program2::Point program2::Hypocycloid::return_radiuses_of_cicles()
 {
-    Point point;
-    point.x = fabs(big_radius - little_radius - real_radius);
-    point.y = fabs(big_radius - little_radius + real_radius);
-    return point;
+    Point point_returner;
+    point_returner.x = fabs(big_radius - little_radius - real_radius);
+    point_returner.y = fabs(big_radius - little_radius + real_radius);
+    return point_returner;
 }
 
 double program2::Hypocycloid::return_radius_krivizni(double angle)
 {
     double helper;
-
     angle = angle / 180 * PI;
-
     helper = (big_radius - little_radius) * (pow(real_radius * real_radius + little_radius * little_radius - 2 * real_radius * cos(big_radius * angle / (-little_radius)), 1.5) / fabs(-pow(little_radius, 3) + real_radius * real_radius * (big_radius - little_radius) - real_radius * little_radius * (big_radius - 2 * little_radius) * cos(big_radius * angle / (-little_radius))));
-
     return helper;
 
 }
