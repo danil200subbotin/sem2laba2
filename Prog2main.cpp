@@ -103,7 +103,7 @@ int main() {
                 case 8:
                 {
                     point = hypocycloid.get_base_point();
-                    std::cout << "x0 = " << point.x << "y0 = " << point.y << std::endl;
+                    std::cout << "x0 = " << point.x << "; y0 = " << point.y << std::endl;
                     break;
                 }
                 case 9:
@@ -130,7 +130,13 @@ int main() {
                 }
                 case 12:
                 {
-                    hypocycloid.return_type_hypocycloid();
+                    int a = hypocycloid.return_type_hypocycloid();
+                    if (a == 0)
+                        std::cout << "Укороченная гипоциклоида"<< std::endl;
+                    if (a == 1)
+                        std::cout << "Удлиненная гипоциклоида"<< std::endl;
+                    if (a == 2)
+                        std::cout << "Обыкновенная гипоциклоида"<< std::endl;
                     break;
                 }
                 case 13:

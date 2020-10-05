@@ -55,11 +55,11 @@ namespace program2 {
         Hypocycloid& set_base_point(double x0 = 0, double y0 = 0) {point.x = x0; point.y = y0; return *this; }
 
         [[maybe_unused]] Hypocycloid& set_base_point(Point &point_setter);
-        Point return_coordinates_by_angle(double angle = 0); //3    //непосредственно методы работы с классом:
-        Point return_radiuses_of_cicles();    //4
-        double return_radius_krivizni(double angle);     //5
-        void return_type_hypocycloid(); //6
-        double return_sector_space(double angle);  //7
+        Point return_coordinates_by_angle(double angle = 0) const; //3    //непосредственно методы работы с классом:
+        Point return_radiuses_of_cicles() const;    //4
+        double return_radius_krivizni(double angle) const;     //5
+        int return_type_hypocycloid() const; //6
+        double return_sector_space(double angle) const;  //7
 
     };
 

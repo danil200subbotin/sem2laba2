@@ -14,14 +14,15 @@
 
 program2::Hypocycloid::Hypocycloid(double x0, double y0, double big_radius, double little_radius, double real_radius) : point(x0, y0)
 {
-
-//    std::cout << "real = " << real_radius << std::endl;
-    if ((big_radius < 0) || (little_radius < 0) || (little_radius >= big_radius))
-        throw "invalid radius";
+    if (big_radius <= 0)
+        throw "invalid big radius";
+    if (little_radius <= 0)
+        throw "invalid little radius";
+    if (little_radius >= big_radius)
+        throw "invalid radius (little >= big)";
     Hypocycloid::little_radius = little_radius;
     Hypocycloid::big_radius = big_radius;
-   // std::cout << real_radius << "-----" << Hypocycloid::little_radius << std::endl;
-    if (real_radius == -1)
+    if (real_radius < 0)
         Hypocycloid::real_radius = Hypocycloid::little_radius;
     else
         Hypocycloid::real_radius = real_radius;
@@ -31,12 +32,15 @@ program2::Hypocycloid::Hypocycloid(double x0, double y0, double big_radius, doub
 
 [[maybe_unused]] program2::Hypocycloid::Hypocycloid(const Point &p0, double big_radius, double little_radius, double real_radius) : point(p0)
 {
- //       std::cout << Hypocycloid::real_radius << std::endl;
-    if ((big_radius < 0) || (little_radius < 0) || (little_radius >= big_radius))
-        throw "invalid radius";
+    if (big_radius <= 0)
+        throw "invalid big radius";
+    if (little_radius <= 0)
+        throw "invalid little radius";
+    if (little_radius >= big_radius)
+        throw "invalid radius (little >= big)";
     Hypocycloid::little_radius = little_radius;
     Hypocycloid::big_radius = big_radius;
-    if (real_radius == -1)
+    if (real_radius < 0)
         Hypocycloid::real_radius = Hypocycloid::little_radius;
     else
         Hypocycloid::real_radius = real_radius;
@@ -62,16 +66,20 @@ std::ostream& program2::Hypocycloid::print(std::ostream &ostream) const
 
 program2::Hypocycloid& program2::Hypocycloid::set_big_radius(double big_radius_setter)
 {
-    if ((big_radius_setter < 0) || (big_radius_setter <= little_radius))
-        throw "invalid radius";
+    if (big_radius_setter < 0)
+        throw "invalid big radius";
+    if (big_radius_setter <= little_radius)
+        throw "invalid radius (little >= big)";
     Hypocycloid::big_radius = big_radius_setter;
     return *this;
 }
 
 program2::Hypocycloid& program2::Hypocycloid::set_little_radius(double little_radius_setter)
 {
-    if ((little_radius_setter < 0) || (Hypocycloid::big_radius <= little_radius_setter))
-        throw "invalid radius";
+    if (little_radius_setter <= 0)
+        throw "invalid little radius";
+    if (little_radius_setter >= big_radius)
+        throw "invalid radius (little >= big)";
     Hypocycloid::little_radius = little_radius_setter;
     return *this;
 }
@@ -79,25 +87,25 @@ program2::Hypocycloid& program2::Hypocycloid::set_little_radius(double little_ra
 program2::Hypocycloid& program2::Hypocycloid::set_real_radius(double real_radius_setter)
 {
     if (real_radius_setter < 0)
-        throw "invalid radius";
+        throw "invalid real radius";
     Hypocycloid::real_radius = real_radius_setter;
     return *this;
 }
 
+
 //-------------------------методы--------------------------------------
 
 
-program2::Point program2::Hypocycloid::return_coordinates_by_angle(double angle)
+program2::Point program2::Hypocycloid::return_coordinates_by_angle(double angle) const
 {
     Point point_returner;
     angle = angle / 180 * PI;
-  //  std::cout  << "angle = " << angle << std::endl;
-    point_returner.x = (big_radius - little_radius) * cos(angle) + (real_radius * cos((big_radius - little_radius) * angle / little_radius));
-    point_returner.y = (big_radius - little_radius) * sin(angle) - (real_radius * sin((big_radius - little_radius) * angle / little_radius));
+    point_returner.x = (big_radius - little_radius) * cos(angle) + (real_radius * cos((big_radius - little_radius) * angle / little_radius)) + point.x;
+    point_returner.y = (big_radius - little_radius) * sin(angle) - (real_radius * sin((big_radius - little_radius) * angle / little_radius)) + point.y;
     return point_returner;
 }
 
-program2::Point program2::Hypocycloid::return_radiuses_of_cicles()
+program2::Point program2::Hypocycloid::return_radiuses_of_cicles() const
 {
     Point point_returner;
     point_returner.x = fabs(big_radius - little_radius - real_radius);
@@ -105,7 +113,7 @@ program2::Point program2::Hypocycloid::return_radiuses_of_cicles()
     return point_returner;
 }
 
-double program2::Hypocycloid::return_radius_krivizni(double angle)
+double program2::Hypocycloid::return_radius_krivizni(double angle) const
 {
     double helper;
     angle = angle / 180 * PI;
@@ -114,17 +122,19 @@ double program2::Hypocycloid::return_radius_krivizni(double angle)
 
 }
 
-void program2::Hypocycloid::return_type_hypocycloid()
+
+int program2::Hypocycloid::return_type_hypocycloid() const
 {
+    enum lenght {SHORT, LONG, STANDART};
     if (little_radius > real_radius)
-        std::cout << "укороченная гипоциклоида" << std::endl;
+        return SHORT;
     if (little_radius < real_radius)
-        std::cout << "удлиненная гипоциклоида" << std::endl;
+        return LONG;
     if (little_radius == real_radius)
-        std::cout << "обыкновенная гипоциклоида" << std::endl;
+        return  STANDART;
 }
 
-double program2::Hypocycloid::return_sector_space(double angle)
+double program2::Hypocycloid::return_sector_space(double angle) const
 {
     double helper;
 
